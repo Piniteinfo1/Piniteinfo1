@@ -26,4 +26,12 @@ class MailController extends Controller
         ]);
           return redirect()->route('login')->with('message', 'User Activated Sucessfully');
     }
+    public function ForgotPassword()
+    {
+        return view('mail.ForgotPassword');
+    }
+    public function Resetpassword(Request $request)
+    {
+        dd($request->all());
+    }
 }

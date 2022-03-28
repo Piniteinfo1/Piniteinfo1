@@ -1,1 +1,1 @@
-<a href={{URL::to('/activeuser' . '/'. "qwertyuiop")}}>Some Link</a>
+<a href={{URL::to($link)}}>Some Link</a>

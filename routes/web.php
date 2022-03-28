@@ -22,4 +22,6 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/sendmail', [App\Http\Controllers\MailController::class, 'SendMail'])->name('sendmail');
 Route::get('/activeuser/{slug}', [App\Http\Controllers\MailController::class, 'ActiveUser'])->name('activeuser');
+Route::get('/ForgotPassword', [App\Http\Controllers\MailController::class, 'ForgotPassword'])->name('ForgotPassword');
+Route::post('/Resetpassword', [App\Http\Controllers\MailController::class, 'Resetpassword'])->name('Resetpassword');
 

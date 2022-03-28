@@ -20,7 +20,7 @@
 
                     <div class="panel-heading">
                         <div class="panel-title">Sign In</div>
-                        <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>
+                        <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="{{route('ForgotPassword')}}">Forgot password?</a></div>
                     </div>  
                     @if ($errors->count())
     @foreach ($errors->all() as $error)

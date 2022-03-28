@@ -69,11 +69,10 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $VerifyEmail = $data['email'];
-        $this->VerifyEmail($VerifyEmail);
         //dd('check2');
         // dd($data['name'] . Str::random(40));
         // dd($data['mobile']);
-        return User::create([
+        $User = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
@@ -82,14 +81,22 @@ class RegisterController extends Controller
             'IsActive' => 0,
             'slug' => Str::random(40),
         ]);
-       // dd($user);
+
+        $slug = $User->slug;
+
+        $this->VerifyEmail($slug);
+        return $User;
     }
-    public function VerifyEmail()
+    public function VerifyEmail($slug)
     {
-        $data = array('name'=>"Virat Gandhi");
+        //dd($slug);
+        $data = [
+           'link' => 'activeuser' . '/' . $slug ,
+           'password' => '123'
+];
         //dd('email check');
-   $link = "www.facebook.com" . '/' . '123456';
-      $mail = Mail::send(['html'=>'verifymail'], $data, function($message)  use ($link){
+   // $link = "www.facebook.com" . '/' . $slug;
+      $mail = Mail::send(['html'=>'verifymail'], $data, function($message) {
          $message->to('chanduakula111@gmail.com', 'Tutorials Point')->subject
             ('Laravel Basic Testing Mail');
          $message->from('xyz@gmail.com','Virat Gandhi');
