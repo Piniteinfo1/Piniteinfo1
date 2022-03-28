@@ -80,8 +80,9 @@ class RegisterController extends Controller
             'mobile' => $data['mobile'],
             'address' => $data['address'],
             'IsActive' => 0,
-            'slug' => '123456',
+            'slug' => Str::random(40),
         ]);
+       // dd($user);
     }
     public function VerifyEmail()
     {
