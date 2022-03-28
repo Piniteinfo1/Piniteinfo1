@@ -1,1 +1,1 @@
-<a href="www.facebook.com">Click Here</a>
+<a href={{URL::to('/activeuser' . '/'. "qwertyuiop")}}>Some Link</a>

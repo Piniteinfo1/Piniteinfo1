@@ -1,6 +1,8 @@
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@2.8.2/dist/alpine.min.js"></script>
+
 <!------ Include the above in your HEAD tag ---------->
 
     <div class="container">    
@@ -8,6 +10,13 @@
 
         <div id="loginbox" style="margin-top:50px; width: 350px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
             <div class="panel panel-info" >
+                @if(session()->has('message'))
+    <div x-data="{show: true}" x-init="setTimeout(() => show = false, 5000)" x-show="show">
+        <div class="alert alert-success">
+        {{ session()->get('message') }}
+    </div>
+</div>
+@endif
 
                     <div class="panel-heading">
                         <div class="panel-title">Sign In</div>

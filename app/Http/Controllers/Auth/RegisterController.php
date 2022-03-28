@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 
 class RegisterController extends Controller
@@ -55,7 +56,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users' , 'email:dns' ],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'confirmed'],
         ]);
     }
 
@@ -70,6 +71,7 @@ class RegisterController extends Controller
         $VerifyEmail = $data['email'];
         $this->VerifyEmail($VerifyEmail);
         //dd('check2');
+        // dd($data['name'] . Str::random(40));
         // dd($data['mobile']);
         return User::create([
             'name' => $data['name'],
@@ -78,13 +80,14 @@ class RegisterController extends Controller
             'mobile' => $data['mobile'],
             'address' => $data['address'],
             'IsActive' => 0,
+            'slug' => '123456',
         ]);
     }
     public function VerifyEmail()
     {
         $data = array('name'=>"Virat Gandhi");
         //dd('email check');
-   $link = "www.facebook.com";
+   $link = "www.facebook.com" . '/' . '123456';
       $mail = Mail::send(['html'=>'verifymail'], $data, function($message)  use ($link){
          $message->to('chanduakula111@gmail.com', 'Tutorials Point')->subject
             ('Laravel Basic Testing Mail');

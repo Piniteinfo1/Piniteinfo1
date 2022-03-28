@@ -19,4 +19,11 @@ class MailController extends Controller
       });
       echo "Basic Email Sent. Check your inbox.";
     }
+    public function ActiveUser(Request $Request, $slug)
+    {
+        \DB::table('users')->where('slug' , $slug)->update([
+          'IsActive' => 1,
+        ]);
+          return redirect()->route('login')->with('message', 'User Activated Sucessfully');
+    }
 }
