@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 use App\models\Resetpassword;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Hash;
+
 class MailController extends Controller
 {
     public function SendMail()
@@ -72,10 +74,13 @@ class MailController extends Controller
               $message->from('xyz@gmail.com','Virat Gandhi');
       });
         }
-        return redirect()->route('EnterOtp');
+        return view('mail.enterotp',compact('email'));
+        // dd('dgdfgdfg');
+        // return redirect()->route('EnterOtp')->with(['email' => $email]);
     }
-    public function EnterOtp()
+    public function EnterOtp(Request $request, $email)
     {
+      dd($email);
         return view('mail.enterotp');
     }
     public function EmailCheck($email)
@@ -85,5 +90,28 @@ class MailController extends Controller
     public function OtpData($EmailVerify)
     {
         return \DB::table('Resetpasswords')->where('user_id', $EmailVerify->id)->first();
+    }
+    public function SetPassword(Request $request)
+    {
+        $email = $request->email;
+        $Email_id = \DB::table('users')->where('email', $request->email)->first();
+        $otp = \DB::table('resetpasswords')->where('user_id', $Email_id->id)->select('otp')->first();
+        // dd($email);
+        if($request->otp != null && $request->otp == $otp->otp)
+        {
+           return view('mail.changepassword',compact('email'));
+        }else{
+            return view('mail.enterotp',compact('email'))->withErrors(['message' => 'invalid otp']);
+        }
+
+       // $otp = \DB::table('resetpasswords')->select('resetpasswords.otp')->join('users','users.id','=','resetpasswords.user_id')->where(['email' => $request->email])->first();
+       // dd($email);
+
+    }
+    public function NewPassword(Request $request)
+    {
+        \DB::table('users')->where('email', $request->email)->update([
+          'password' => Hash::make($request->password)
+        ]);
     }
 }

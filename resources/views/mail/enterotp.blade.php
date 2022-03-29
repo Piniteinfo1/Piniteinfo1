@@ -47,8 +47,20 @@ body {
 <body>
 <div class="d-flex justify-content-center align-items-center container">
     <div class="card py-5 px-3">
+    	 @if($errors->any())
+<h4>{{$errors->first()}}</h4>
+@endif
         <h5 class="m-0">Email verification</h5><span class="mobile-text">Enter the code we just send on your email<b class="text-danger">--------</b></span>
-        <div class="d-flex flex-row mt-5"><input type="text" class="form-control" autofocus=""><input type="text" class="form-control"><input type="text" class="form-control"><input type="text" class="form-control"></div>
+        <form method="post" action="{{route('setpassword')}}">
+        	@csrf
+        <div class="d-flex flex-row mt-5">
+        	<input type="text" name="otp">
+        	<input type="hidden"  name="email" value="{{$email}}">
+        </div>
+         <div class="d-flex flex-row mt-5">
+        	<input type="submit" name="submit" value="submit">
+        </div>
+    </form>
         <div class="text-center mt-5"><span class="d-block mobile-text">Don't receive the code?</span><span class="font-weight-bold text-danger cursor">Resend</span></div>
     </div>
 </div>

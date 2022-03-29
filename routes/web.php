@@ -24,5 +24,9 @@ Route::get('/sendmail', [App\Http\Controllers\MailController::class, 'SendMail']
 Route::get('/activeuser/{slug}', [App\Http\Controllers\MailController::class, 'ActiveUser'])->name('activeuser');
 Route::get('/ForgotPassword', [App\Http\Controllers\MailController::class, 'ForgotPassword'])->name('ForgotPassword');
 Route::post('/Resetpassword', [App\Http\Controllers\MailController::class, 'Resetpassword'])->name('Resetpassword');
+Route::get('/Resetpassword', [App\Http\Controllers\MailController::class, 'Resetpassword'])->name('Resetpassword');
+Route::post('/setpassword', [App\Http\Controllers\MailController::class, 'SetPassword'])->name('setpassword');
+Route::get('/setpassword', [App\Http\Controllers\MailController::class, 'SetPassword'])->name('setpassword');
 Route::get('/EnterOtp', [App\Http\Controllers\MailController::class, 'EnterOtp'])->name('EnterOtp');
+Route::post('/newpassword', [App\Http\Controllers\MailController::class, 'NewPassword'])->name('newpassword');
 
