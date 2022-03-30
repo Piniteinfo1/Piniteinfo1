@@ -35,7 +35,7 @@ transition: .3s ease all;
  
 <!------ Include the above in your HEAD tag ---------->
 
-<div class="container">
+<div class="container" style="padding-left: 450px" style="padding-top: 200px">
 	<div class="row">
 		<div class="col-sm-4">
 		    <form method="post" action="{{route('newpassword')}}">

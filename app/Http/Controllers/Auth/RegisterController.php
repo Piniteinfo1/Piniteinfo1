@@ -83,21 +83,23 @@ class RegisterController extends Controller
         ]);
 
         $slug = $User->slug;
-
-        $this->VerifyEmail($slug);
+        $email = $data['email'];
+        $this->VerifyEmail($slug, $email);
+        // dd($data);
         return $User;
     }
-    public function VerifyEmail($slug)
+    public function VerifyEmail($slug, $email)
     {
-        //dd($slug);
+        // dd($data);
         $data = [
            'link' => 'activeuser' . '/' . $slug ,
            'password' => '123'
 ];
         //dd('email check');
    // $link = "www.facebook.com" . '/' . $slug;
-      $mail = Mail::send(['html'=>'verifymail'], $data, function($message) {
-         $message->to('chanduakula111@gmail.com', 'Tutorials Point')->subject
+// dd($email);
+      $mail = Mail::send(['html'=>'verifymail'], $data, function($message)  use($email){
+         $message->to($email, 'Tutorials Point')->subject
             ('Laravel Basic Testing Mail');
          $message->from('xyz@gmail.com','Virat Gandhi');
          

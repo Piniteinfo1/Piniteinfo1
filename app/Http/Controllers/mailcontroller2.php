@@ -14,7 +14,6 @@ class MailController extends Controller
 {
     public function SendMail()
     {	
-      // dd('sdfadsfsdffds');
       $data = array('name'=>"Virat Gandhi");
     	//dd('email check');
    
@@ -38,7 +37,6 @@ class MailController extends Controller
     }
     public function Resetpassword(Request $request)
     {
-      // dd($request->all());
         if($request->email == null)
         {
             return Redirect::back()->withErrors(['message' => 'Please enter email']);
@@ -54,7 +52,6 @@ class MailController extends Controller
             ];
             // dd($request->all());
             $email = $request->email;
-            // dd($email);
             $EmailVerify = $this->EmailCheck($email); 
             $otpdata = $this->OtpData($EmailVerify);
             // dd($otpdata);
@@ -71,8 +68,8 @@ class MailController extends Controller
               ]);
             }
             
-            $mail = Mail::send(['html'=>'resetotp'], $data, function($message) use($email){
-              $message->to($email, 'Tutorials Point')->subject('Laravel Basic Testing Mail');
+            $mail = Mail::send(['html'=>'resetotp'], $data, function($message) {
+              $message->to('chanduakula111@gmail.com', 'Tutorials Point')->subject('Laravel Basic Testing Mail');
               $message->from('xyz@gmail.com','Virat Gandhi');
       });
         }

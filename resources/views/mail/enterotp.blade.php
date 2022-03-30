@@ -61,7 +61,7 @@ body {
         	<input type="submit" name="submit" value="submit">
         </div>
     </form>
-        <div class="text-center mt-5"><span class="d-block mobile-text">Don't receive the code?</span><span class="font-weight-bold text-danger cursor">Resend</span></div>
+        <div class="text-center mt-5"><span class="d-block mobile-text">Don't receive the code?</span><span class="font-weight-bold text-danger cursor"><a href="#">Resend</a></span></div>
     </div>
 </div>
 </body>
