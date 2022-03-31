@@ -29,4 +29,4 @@ Route::post('/setpassword', [App\Http\Controllers\MailController::class, 'SetPas
 Route::get('/setpassword', [App\Http\Controllers\MailController::class, 'SetPassword'])->name('setpassword');
 Route::get('/EnterOtp', [App\Http\Controllers\MailController::class, 'EnterOtp'])->name('EnterOtp');
 Route::post('/newpassword', [App\Http\Controllers\MailController::class, 'NewPassword'])->name('newpassword');
-
+Route::get('/admin/dashboard', [App\Http\Controllers\AdminController::class, 'AdminDashboard'])->name('AdminDashboard');
