@@ -30,3 +30,5 @@ Route::get('/setpassword', [App\Http\Controllers\MailController::class, 'SetPass
 Route::get('/EnterOtp', [App\Http\Controllers\MailController::class, 'EnterOtp'])->name('EnterOtp');
 Route::post('/newpassword', [App\Http\Controllers\MailController::class, 'NewPassword'])->name('newpassword');
 Route::get('/admin/dashboard', [App\Http\Controllers\AdminController::class, 'AdminDashboard'])->name('AdminDashboard');
+Route::get('/photo', [App\Http\Controllers\AdminController::class, 'photo'])->name('photo');
+Route::post('/upload', [App\Http\Controllers\AdminController::class, 'upload'])->name('upload');
