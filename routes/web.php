@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('Auth.login');
 });
-
-Auth::routes();
-// Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware(['preventBackHistory'])->group(function () {
+	Auth::routes();
+});
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/sendmail', [App\Http\Controllers\MailController::class, 'SendMail'])->name('sendmail');
 Route::get('/activeuser/{slug}', [App\Http\Controllers\MailController::class, 'ActiveUser'])->name('activeuser');
@@ -30,5 +30,4 @@ Route::get('/setpassword', [App\Http\Controllers\MailController::class, 'SetPass
 Route::get('/EnterOtp', [App\Http\Controllers\MailController::class, 'EnterOtp'])->name('EnterOtp');
 Route::post('/newpassword', [App\Http\Controllers\MailController::class, 'NewPassword'])->name('newpassword');
 Route::get('/admin/dashboard', [App\Http\Controllers\AdminController::class, 'AdminDashboard'])->name('AdminDashboard');
-Route::get('/photo', [App\Http\Controllers\AdminController::class, 'photo'])->name('photo');
-Route::post('/upload', [App\Http\Controllers\AdminController::class, 'upload'])->name('upload');
+// Route::get('/mail', [App\Http\Controllers\AdminController::class, 'mail'])->name('mail');

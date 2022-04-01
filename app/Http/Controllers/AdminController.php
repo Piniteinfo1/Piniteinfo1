@@ -10,19 +10,14 @@ class AdminController extends Controller
     {
     	return view('Admin.admindashboard');
     }
-    public function photo()
-    {
-    	return view('photo');
-    }
-    public function upload(Request $Request)
-    {
-    	$file= $Request->file('image');
-    	$filename= '1' . $file->getClientOriginalName();
-    	$r = $file-> move(public_path('public/Image'), $filename);
-    	// $imageName = $Request->getClientOriginalExtension();
-    	// dd($r);
-    	// dd($imageName);
-    	// $r = request()->image->move(public_path('images'), $imageName);
-    	// dd($r);
-    }
+    // public function mail(Request  $Request)
+    // {
+    // 	// $email = "chanduakula111@naarsoft.com";
+    // 	// dd($Request->all());
+    // 	if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    // 		echo "k";
+    // 	}else{
+    // 		echo "string";
+    // 	}
+    // }
 }
