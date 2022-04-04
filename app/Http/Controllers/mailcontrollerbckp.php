@@ -9,7 +9,6 @@ use Illuminate\Support\Str;
 use App\models\Resetpassword;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class MailController extends Controller
 {
@@ -42,18 +41,13 @@ class MailController extends Controller
       // dd($request->all());
         if($request->email == null)
         {
-            return response()->json([
-              'status' => false,
-              'message' => 'please enter email id'
-            ]);
+            return Redirect::back()->withErrors(['message' => 'Please enter email']);
+        }else{
         }
         $CheckMail = \DB::table('users')->where('email', $request->email)->first();
         if($CheckMail == null)
         {
-            return response()->json([
-                'status' => false,
-                'message' => 'User Not Found'
-            ]);
+          return Redirect::back()->withErrors(['message' => 'Invalid User']);
         }else{
             $data = [
            'otp' => Str::random(5)
@@ -82,11 +76,7 @@ class MailController extends Controller
               $message->from('xyz@gmail.com','Virat Gandhi');
       });
         }
-        return response()->json([
-          'status' => true,
-          'message' => 'otp sent to your mail Sucessfully',
-          'data' => $email,
-        ]);
+        return view('mail.enterotp',compact('email'));
         // dd('dgdfgdfg');
         // return redirect()->route('EnterOtp')->with(['email' => $email]);
     }
@@ -105,64 +95,24 @@ class MailController extends Controller
     }
     public function SetPassword(Request $request)
     {
-       $validator = Validator::make($request->all(), [
-            'email' => 'required',
-            'otp' => 'required'
-            ]);
-
-        //Send failed response if request is not valid
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'validation errors',
-                'error' => $validator->errors()
-            ], 200);
-        }
         $email = $request->email;
         $Email_id = \DB::table('users')->where('email', $request->email)->first();
         $otp = \DB::table('resetpasswords')->where('user_id', $Email_id->id)->select('otp')->first();
         // dd($email);
         if($request->otp != null && $request->otp == $otp->otp)
         {
-           return response()->json([
-              'status' => true,
-              'message' => 'Otp Has Been Verified',
-           ]);
+           return view('mail.changepassword',compact('email'));
         }else{
-            return response()->json([
-                'status' => false,
-                'message' => 'Entered Otp Was Invalid',
-                'data' => $email
-            ]);
+            return view('mail.enterotp',compact('email'))->withErrors(['message' => 'invalid otp']);
         }
-
        // $otp = \DB::table('resetpasswords')->select('resetpasswords.otp')->join('users','users.id','=','resetpasswords.user_id')->where(['email' => $request->email])->first();
        // dd($email);
-
     }
     public function NewPassword(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required',
-            'password' => 'required',
-            'confirm_password' => 'required|same:password'
-            ]);
-
-        //Send failed response if request is not valid
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'validation errors',
-                'error' => $validator->errors()
-            ], 200);
-        }
-
         \DB::table('users')->where('email', $request->email)->update([
           'password' => Hash::make($request->password)
         ]);
-        return response()->json([
-            'status' => true,
-            'message' => 'Password Changed Sucessfully',
-        ]);
+        return redirect()->route('login')->with('message', 'Password Changed Sucessfully');
     }
 }
